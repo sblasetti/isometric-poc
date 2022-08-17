@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 283041866}
   - component: {fileID: 283041865}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: PlayerGlasses
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,7 +241,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 283041863}
   m_LocalRotation: {x: -0.70710677, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.000000020336998, y: 0.4, z: -0.45}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0.47}
   m_LocalScale: {x: 0.6588, y: 0.12162, z: 0.29446}
   m_Children: []
   m_Father: {fileID: 1823122894}
@@ -496,7 +496,7 @@ GameObject:
   - component: {fileID: 1191684041}
   - component: {fileID: 1191684040}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: PlayerBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -679,7 +679,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1823122894}
-  - component: {fileID: 1823122895}
+  - component: {fileID: 1823122897}
   - component: {fileID: 1823122896}
   m_Layer: 0
   m_Name: Player
@@ -696,7 +696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823122893}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 1.77, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1191684043}
@@ -704,22 +704,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &1823122895
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823122893}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 10
-  m_CollisionDetection: 0
 --- !u!114 &1823122896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,3 +716,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d34b1024e1fa54e40ba9f932214b8adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 1823122897}
+  camera: {fileID: 963194228}
+  speed: 6
+  turnSmoothTime: 0.05
+--- !u!143 &1823122897
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823122893}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
