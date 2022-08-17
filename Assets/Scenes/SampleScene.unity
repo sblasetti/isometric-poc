@@ -279,7 +279,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c6987eac567396b41a4dfaba4e267bb9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -534,7 +534,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8ed42c1c57dc1c9438fc4499c2f0603a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -716,9 +716,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d34b1024e1fa54e40ba9f932214b8adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 1823122897}
-  camera: {fileID: 963194228}
+  characterController: {fileID: 1823122897}
+  cameraTransform: {fileID: 963194228}
   speed: 6
+  lookAtPointer: 1
+  lookAtPointerKey: 304
   turnSmoothTime: 0.05
 --- !u!143 &1823122897
 CharacterController:
