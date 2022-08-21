@@ -4,7 +4,8 @@ public class IsometricWalk3D : MonoBehaviour
 {
     public CharacterController characterController;
     public Transform cameraTransform;
-    public float speed = 6f;
+    public float regularSpeed = 6f;
+    public float slowSpeed = 3f;
 
     public float turnSmoothTime = 0.05f;
     float turnSmoothVelocity;
@@ -39,7 +40,7 @@ public class IsometricWalk3D : MonoBehaviour
             Vector3 movementDirection = Quaternion.Euler(0f, targetDirectionAngle, 0f) * Vector3.forward;
 
             // Character movement
-            var movementSpeed = isJustWalking ? speed : pointAndShootBehavior.speed;
+            var movementSpeed = isJustWalking ? regularSpeed : slowSpeed;
             characterController.Move(movementDirection.normalized * movementSpeed * Time.deltaTime);
         }
     }

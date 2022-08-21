@@ -2,7 +2,7 @@
 
 public class IsometricPointAndShoot3D : MonoBehaviour
 {
-    public float speed = 6f;
+    public float turnSpeed = 6f;
     public KeyCode lookAtPointerKey = KeyCode.Mouse1;
     public float turnSmoothTime = 0.05f;
 
@@ -22,7 +22,7 @@ public class IsometricPointAndShoot3D : MonoBehaviour
             {
                 var targetPoint = ray.GetPoint(hitDistance);
                 var targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
             }
         }
     }

@@ -922,7 +922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c542c812699c513448b81e2e342aff1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  turnSpeed: 6
   lookAtPointerKey: 324
   turnSmoothTime: 0.05
 --- !u!114 &1823122896
@@ -939,7 +939,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 1823122897}
   cameraTransform: {fileID: 963194228}
-  speed: 5
+  regularSpeed: 6
+  slowSpeed: 3
   turnSmoothTime: 0.05
 --- !u!143 &1823122897
 CharacterController:
