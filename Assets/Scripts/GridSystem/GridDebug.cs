@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GridDebug : MonoBehaviour
 {
-    public GridSystemContainer container;
+    public GridSystemContainer gridContainer;
     public bool debugOn = false;
 
     void Start()
@@ -14,7 +14,7 @@ public class GridDebug : MonoBehaviour
     {
         if (debugOn)
         {
-            container.DrawGrid();
+            gridContainer.DrawGrid();
         }
     }
 }

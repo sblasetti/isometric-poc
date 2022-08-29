@@ -148,7 +148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7281129}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.709, y: 2, z: -1.11}
+  m_LocalPosition: {x: 0.892, y: 2, z: 0.504}
   m_LocalScale: {x: 0.21099, y: 3.8290424, z: 1}
   m_Children: []
   m_Father: {fileID: 1256865216}
@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af3f6d5b8e163324aaf06c8de3e7b5b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  container: {fileID: 0}
+  gridContainer: {fileID: 0}
   debugOn: 0
 --- !u!4 &840596155
 Transform:
@@ -724,7 +724,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250573382}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.455, y: 2, z: -1.11}
+  m_LocalPosition: {x: 1.353, y: 2, z: 0.515}
   m_LocalScale: {x: 0.21099, y: 3.8290424, z: 1}
   m_Children: []
   m_Father: {fileID: 1256865216}
@@ -854,7 +854,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1292995745}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.1, y: 2, z: -0.22}
+  m_LocalPosition: {x: 0.976, y: 2, z: 1.349}
   m_LocalScale: {x: 0.21099, y: 3.8290424, z: 1}
   m_Children: []
   m_Father: {fileID: 1256865216}
@@ -951,6 +951,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startCell: {x: 0, y: 0, z: 0}
   endCell: {x: 5, y: 0, z: 5}
+  targetPlayer: 1
+  drawPath: 1
+  gridContainer: {fileID: 2115707286}
+  playerTransform: {fileID: 1823122894}
 --- !u!4 &1529826544
 Transform:
   m_ObjectHideFlags: 0
@@ -1080,7 +1084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af3f6d5b8e163324aaf06c8de3e7b5b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  container: {fileID: 2115707286}
+  gridContainer: {fileID: 2115707286}
   debugOn: 1
 --- !u!114 &2115707286
 MonoBehaviour:
@@ -1094,8 +1098,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b83e714ad13d9ff4eb85f5c5e69fc6c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 6
-  width: 6
+  height: 20
+  width: 20
   cellSize: 2
   originPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &2115707287

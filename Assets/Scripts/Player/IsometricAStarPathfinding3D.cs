@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.GridSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,14 +8,85 @@ public class IsometricAStarPathfinding3D : MonoBehaviour
 {
     public Vector3 startCell;
     public Vector3 endCell;
+    public bool targetPlayer;
+    public bool drawPath = false;
+    
+    public GridSystemContainer gridContainer;
+    public Transform playerTransform;
+
+    private int gridWidth;
+    private int gridHeight;
+
+    private AStarPathfindingAlgorithm algo;
+    private Dictionary<AStarNode, List<AStartNodeAndVisitCost>> graph;
+
+    private AStarNode lastStartNode;
+    private AStarNode lastEndNode;
 
     private void Start()
     {
-        var gridWidth = 10;
-        var gridHeight = 10;
+        gridWidth = gridContainer.width;
+        gridHeight = gridContainer.width;
+        algo = new AStarPathfindingAlgorithm();
 
-        var algo = new AStarPathfindingAlgorithm();
+        graph = InitializeGraph();
+    }
 
+    private void Update()
+    {
+        var startNode = new AStarNode(Convert.ToInt32(startCell.x), Convert.ToInt32(startCell.z));
+        var endNode = GetEndNode();
+
+        bool sameStart = false;
+        if (lastStartNode != null && lastStartNode == startNode)
+        {
+            sameStart = true;
+        }
+        bool sameEnd = false;
+        if (lastEndNode != null && lastEndNode == endNode)
+        {
+            sameEnd = true;
+        }
+
+        if (sameStart && sameEnd) return;
+
+        var heuristicsTable = new Dictionary<AStarNode, float>();
+        foreach (var node in graph.Keys)
+        {
+            heuristicsTable.Add(node, algo.calculateHeuristics(node, endNode));
+        }
+
+        var nav = algo.findNodeNavigation(graph, startNode, endNode, heuristicsTable);
+        var path = algo.reconstructPath(nav, endNode);
+
+        if (drawPath)
+        {
+            var size = gridContainer.cellSize;
+            var mid = new Vector3(size / 2, 0, size / 2);
+            for (int i = 1; i < path.Count; i++)
+            {
+                var aN = path[i - 1];
+                var a = GameGridUtils.GetWorldPosition(aN.x, aN.y, size, gridContainer.originPosition) + mid;
+                var bN = path[i];
+                var b = GameGridUtils.GetWorldPosition(bN.x, bN.y, size, gridContainer.originPosition) + mid;
+                Debug.DrawLine(a, b, Color.red);
+            }
+        }
+    }
+
+    private AStarNode GetEndNode()
+    {
+        if (targetPlayer)
+        {
+            var position = GameGridUtils.GetCellPosition(playerTransform.position, gridContainer.cellSize, gridContainer.originPosition);
+            return new AStarNode(position.X, position.Y);
+        }
+
+        return new AStarNode(Convert.ToInt32(endCell.x), Convert.ToInt32(endCell.z));
+    }
+
+    private Dictionary<AStarNode, List<AStartNodeAndVisitCost>> InitializeGraph()
+    {
         var graph = new Dictionary<AStarNode, List<AStartNodeAndVisitCost>>();
         for (int x = 0; x < gridWidth; x++)
         {
@@ -42,17 +114,7 @@ public class IsometricAStarPathfinding3D : MonoBehaviour
             }
         }
 
-        var startNode = new AStarNode(Convert.ToInt32(startCell.x), Convert.ToInt32(startCell.z));
-        var endNode = new AStarNode(Convert.ToInt32(endCell.x), Convert.ToInt32(endCell.z));
-
-        var heuristicsTable = new Dictionary<AStarNode, float>();
-        foreach (var node in graph.Keys)
-        {
-            heuristicsTable.Add(node, algo.calculateHeuristics(node, endNode));
-        }
-
-        var nav = algo.findNodeNavigation(graph, startNode, endNode, heuristicsTable);
-        var path = algo.reconstructPath(nav, endNode);
+        return graph;
     }
 }
 
@@ -86,8 +148,6 @@ public class AStarPathfindingAlgorithm
         {
             var node = priorityQueue[0];
             priorityQueue.RemoveAt(0);
-
-            Debug.Log(node.referenceKey);
 
             if (node.Equals(endNode))
             {
