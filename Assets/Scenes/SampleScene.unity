@@ -430,7 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridContainer: {fileID: 0}
-  debugOn: 0
+  drawGrid: 0
 --- !u!4 &840596155
 Transform:
   m_ObjectHideFlags: 0
@@ -724,8 +724,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250573382}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.353, y: 2, z: 0.515}
-  m_LocalScale: {x: 0.21099, y: 3.8290424, z: 1}
+  m_LocalPosition: {x: 1.391, y: 2, z: 0.492}
+  m_LocalScale: {x: 0.20042573, y: 3.824907, z: 0.5915213}
   m_Children: []
   m_Father: {fileID: 1256865216}
   m_RootOrder: 0
@@ -854,8 +854,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1292995745}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.976, y: 2, z: 1.349}
-  m_LocalScale: {x: 0.21099, y: 3.8290424, z: 1}
+  m_LocalPosition: {x: 0.995, y: 2, z: 1.296}
+  m_LocalScale: {x: 0.2000143, y: 3.8290424, z: 1}
   m_Children: []
   m_Father: {fileID: 1256865216}
   m_RootOrder: 2
@@ -1033,8 +1033,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 1823122897}
   cameraTransform: {fileID: 963194228}
+  gridSystemContanter: {fileID: 2115707286}
   regularSpeed: 6
   slowSpeed: 3
+  logPosition: 1
   turnSmoothTime: 0.05
 --- !u!143 &1823122897
 CharacterController:
@@ -1085,7 +1087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridContainer: {fileID: 2115707286}
-  debugOn: 1
+  drawGrid: 1
 --- !u!114 &2115707286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1102,6 +1104,59 @@ MonoBehaviour:
   width: 20
   cellSize: 2
   originPosition: {x: 0, y: 0, z: 0}
+  occupiedCells:
+  - {x: 8, y: 0}
+  - {x: 8, y: 1}
+  - {x: 8, y: 2}
+  - {x: 8, y: 3}
+  - {x: 8, y: 4}
+  - {x: 8, y: 5}
+  - {x: 8, y: 6}
+  - {x: 8, y: 7}
+  - {x: 8, y: 8}
+  - {x: 8, y: 9}
+  - {x: 9, y: 0}
+  - {x: 9, y: 1}
+  - {x: 9, y: 2}
+  - {x: 9, y: 3}
+  - {x: 9, y: 4}
+  - {x: 9, y: 5}
+  - {x: 9, y: 6}
+  - {x: 9, y: 7}
+  - {x: 9, y: 8}
+  - {x: 9, y: 9}
+  - {x: 13, y: 2}
+  - {x: 13, y: 3}
+  - {x: 13, y: 4}
+  - {x: 13, y: 5}
+  - {x: 13, y: 6}
+  - {x: 13, y: 7}
+  - {x: 14, y: 2}
+  - {x: 14, y: 3}
+  - {x: 14, y: 4}
+  - {x: 14, y: 5}
+  - {x: 14, y: 6}
+  - {x: 14, y: 7}
+  - {x: 5, y: 12}
+  - {x: 6, y: 12}
+  - {x: 7, y: 12}
+  - {x: 8, y: 12}
+  - {x: 9, y: 12}
+  - {x: 10, y: 12}
+  - {x: 11, y: 12}
+  - {x: 12, y: 12}
+  - {x: 13, y: 12}
+  - {x: 14, y: 12}
+  - {x: 5, y: 13}
+  - {x: 6, y: 13}
+  - {x: 7, y: 13}
+  - {x: 8, y: 13}
+  - {x: 9, y: 13}
+  - {x: 10, y: 13}
+  - {x: 11, y: 13}
+  - {x: 12, y: 13}
+  - {x: 13, y: 13}
+  - {x: 14, y: 13}
 --- !u!4 &2115707287
 Transform:
   m_ObjectHideFlags: 0

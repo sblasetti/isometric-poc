@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.GridSystem;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,7 +25,7 @@ public class IsometricAStarPathfinding3D : MonoBehaviour
     private void Start()
     {
         gridWidth = gridContainer.width;
-        gridHeight = gridContainer.width;
+        gridHeight = gridContainer.height;
         algo = new AStarPathfindingAlgorithm();
 
         graph = InitializeGraph();
@@ -61,16 +60,21 @@ public class IsometricAStarPathfinding3D : MonoBehaviour
 
         if (drawPath)
         {
-            var size = gridContainer.cellSize;
-            var mid = new Vector3(size / 2, 0, size / 2);
-            for (int i = 1; i < path.Count; i++)
-            {
-                var aN = path[i - 1];
-                var a = GameGridUtils.GetWorldPosition(aN.x, aN.y, size, gridContainer.originPosition) + mid;
-                var bN = path[i];
-                var b = GameGridUtils.GetWorldPosition(bN.x, bN.y, size, gridContainer.originPosition) + mid;
-                Debug.DrawLine(a, b, Color.red);
-            }
+            DrawPath(path);
+        }
+    }
+
+    private void DrawPath(List<AStarNode> path)
+    {
+        var size = gridContainer.cellSize;
+        var mid = new Vector3(size / 2, 0, size / 2);
+        for (int i = 1; i < path.Count; i++)
+        {
+            var aN = path[i - 1];
+            var a = GameGridUtils.GetWorldPosition(aN.x, aN.y, size, gridContainer.originPosition) + mid;
+            var bN = path[i];
+            var b = GameGridUtils.GetWorldPosition(bN.x, bN.y, size, gridContainer.originPosition) + mid;
+            Debug.DrawLine(a, b, Color.red);
         }
     }
 
@@ -79,7 +83,7 @@ public class IsometricAStarPathfinding3D : MonoBehaviour
         if (targetPlayer)
         {
             var position = GameGridUtils.GetCellPosition(playerTransform.position, gridContainer.cellSize, gridContainer.originPosition);
-            return new AStarNode(position.X, position.Y);
+            return new AStarNode(position.x, position.y);
         }
 
         return new AStarNode(Convert.ToInt32(endCell.x), Convert.ToInt32(endCell.z));
@@ -92,8 +96,13 @@ public class IsometricAStarPathfinding3D : MonoBehaviour
         {
             for (int y = 0; y < gridHeight; y++)
             {
-                var node = new AStarNode(x, y);
-                graph.Add(node, new List<AStartNodeAndVisitCost>());
+                // TODO: improve this search
+                var isOccupied = gridContainer.occupiedCells.Exists(cell => cell.x == x && cell.y == y);
+                if (!isOccupied)
+                {
+                    var node = new AStarNode(x, y);
+                    graph.Add(node, new List<AStartNodeAndVisitCost>());
+                }
             }
         }
         foreach (var node in graph.Keys)
@@ -108,6 +117,9 @@ public class IsometricAStarPathfinding3D : MonoBehaviour
                     var y = node.y + cellY;
                     if (y < 0 || y >= gridHeight) continue;
                     if (x == node.x && y == node.y) continue;
+                    // TODO: improve this search
+                    var isOccupied = gridContainer.occupiedCells.Exists(cell => cell.x == x && cell.y == y);
+                    if (isOccupied) continue;
 
                     graph[node].Add(new AStartNodeAndVisitCost(new AStarNode(x, y), 1));
                 }

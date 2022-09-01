@@ -1,11 +1,15 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.GridSystem;
+using UnityEngine;
 
 public class IsometricWalk3D : MonoBehaviour
 {
     public CharacterController characterController;
     public Transform cameraTransform;
+    public GridSystemContainer gridSystemContanter;
+
     public float regularSpeed = 6f;
     public float slowSpeed = 3f;
+    public bool logPosition = false;
 
     public float turnSmoothTime = 0.05f;
     float turnSmoothVelocity;
@@ -42,6 +46,12 @@ public class IsometricWalk3D : MonoBehaviour
             // Character movement
             var movementSpeed = isJustWalking ? regularSpeed : slowSpeed;
             characterController.Move(movementDirection.normalized * movementSpeed * Time.deltaTime);
+
+            if (logPosition)
+            {
+                var gridPosition = GameGridUtils.GetCellPosition(transform.position, gridSystemContanter.cellSize, gridSystemContanter.originPosition);
+                Debug.Log($"Current position: ({gridPosition.x};{gridPosition.y})");
+            }
         }
     }
 }

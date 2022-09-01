@@ -4,7 +4,7 @@ using UnityEngine;
 public class GridDebug : MonoBehaviour
 {
     public GridSystemContainer gridContainer;
-    public bool debugOn = false;
+    public bool drawGrid = false;
 
     void Start()
     {
@@ -12,7 +12,7 @@ public class GridDebug : MonoBehaviour
 
     void Update()
     {
-        if (debugOn)
+        if (drawGrid)
         {
             gridContainer.DrawGrid();
         }

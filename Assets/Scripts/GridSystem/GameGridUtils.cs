@@ -15,11 +15,11 @@ namespace Assets.Scripts.GridSystem
             return new Vector3(x, 0, y) * cellSize + worldOffset;
         }
 
-        public static Point GetCellPosition(Vector3 worldPosition, int cellSize, Vector3Int worldOffset)
+        public static Vector2Int GetCellPosition(Vector3 worldPosition, int cellSize, Vector3Int worldOffset)
         {
             var x = Mathf.FloorToInt((worldPosition - worldOffset).x / cellSize);
             var y = Mathf.FloorToInt((worldPosition - worldOffset).z / cellSize);
-            return new Point(x, y);
+            return new Vector2Int(x, y);
         }
     }
 }
