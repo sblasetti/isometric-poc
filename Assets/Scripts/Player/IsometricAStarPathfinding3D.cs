@@ -141,55 +141,64 @@ public class AStarPathfindingAlgorithm
         var dx = Math.Abs(aNode.x - targetNode.x);
         var dy = Math.Abs(aNode.y - targetNode.y);
         return D * (dx + dy) + (D2 - 2 * D) * Math.Min(dx, dy);
-     }
+    }
 
     // https://www.thecriticalcoder.com/a-a-star-algorithm-a-step-by-step-illustrated-explanation/
     public Dictionary<AStarNode, AStarNode> findNodeNavigation(Dictionary<AStarNode, List<AStartNodeAndVisitCost>> graph, AStarNode startNode, AStarNode endNode, Dictionary<AStarNode, float> heuristicsTable)
     {
-        var distances = new Dictionary<AStarNode, float>();
-        distances.Add(startNode, 0);
-        var visitedNodes = new HashSet<AStarNode>();
         var nodeNavigation = new Dictionary<AStarNode, AStarNode>();
-        nodeNavigation.Add(startNode, null);
-
-        startNode.cost = 0 + heuristicsTable[startNode];
-        var priorityQueue = new List<AStarNode>();
-        priorityQueue.Add(startNode);
-
-        while (priorityQueue.Count > 0)
+        try
         {
-            var node = priorityQueue[0];
-            priorityQueue.RemoveAt(0);
+            var distances = new Dictionary<AStarNode, float>();
+            distances.Add(startNode, 0);
+            var visitedNodes = new HashSet<AStarNode>();
+            nodeNavigation.Add(startNode, null);
 
-            if (node.Equals(endNode))
+            startNode.cost = 0 + heuristicsTable[startNode];
+            var priorityQueue = new List<AStarNode>();
+            priorityQueue.Add(startNode);
+
+            while (priorityQueue.Count > 0)
             {
-                break;
+                var node = priorityQueue[0];
+                priorityQueue.RemoveAt(0);
+
+                if (node.Equals(endNode))
+                {
+                    break;
+                }
+
+                foreach (var neighbourWithCost in graph[node])
+                {
+                    if (visitedNodes.Contains(neighbourWithCost.node)) continue;
+
+                    var previousDistance = distances.ContainsKey(neighbourWithCost.node) ? distances[neighbourWithCost.node] : float.PositiveInfinity;
+                    var updatedDistance = distances[node] + neighbourWithCost.visitCost;
+                    if (updatedDistance >= previousDistance) continue;
+
+                    distances[neighbourWithCost.node] = updatedDistance;
+                    var priority = updatedDistance + heuristicsTable[neighbourWithCost.node];
+                    neighbourWithCost.node.cost = priority;
+
+                    // Insert in the right position
+                    var position = priorityQueue.FindIndex(n => n.cost > priority);
+                    var insertIndex = position >= 0 ? position : priorityQueue.Count;
+                    priorityQueue.Insert(insertIndex, neighbourWithCost.node);
+
+                    nodeNavigation.Add(neighbourWithCost.node, node);
+                }
+
+                visitedNodes.Add(node);
             }
 
-            foreach (var neighbourWithCost in graph[node])
-            {
-                if (visitedNodes.Contains(neighbourWithCost.node)) continue;
+            return nodeNavigation;
 
-                var previousDistance = distances.ContainsKey(neighbourWithCost.node) ? distances[neighbourWithCost.node] : float.PositiveInfinity;
-                var updatedDistance = distances[node] + neighbourWithCost.visitCost;
-                if (updatedDistance >= previousDistance) continue;
-
-                distances[neighbourWithCost.node] = updatedDistance;
-                var priority = updatedDistance + heuristicsTable[neighbourWithCost.node];
-                neighbourWithCost.node.cost = priority;
-                
-                // Insert in the right position
-                var position = priorityQueue.FindIndex(n => n.cost > priority);
-                var insertIndex = position >= 0 ? position : priorityQueue.Count;
-                priorityQueue.Insert(insertIndex, neighbourWithCost.node);
-
-                nodeNavigation.Add(neighbourWithCost.node, node);
-            }
-
-            visitedNodes.Add(node);
         }
-
-        return nodeNavigation;
+        catch (Exception ex)
+        {
+            Debug.LogWarning(nodeNavigation.Keys);
+            return nodeNavigation;
+        }
     }
 
     public List<AStarNode> reconstructPath(Dictionary<AStarNode, AStarNode> nodeNavigation, AStarNode toNode)

@@ -457,6 +457,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -543,6 +544,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerTransform: {fileID: 1823122894}
   SmoothFactor: 0.5
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7de1ee54f9a852740bb88dce81303ef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ZoomFactor: 8
+  MaxZoom: 15
+  MinZoom: 5
 --- !u!1 &1191684039
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,8 +967,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startCell: {x: 0, y: 0, z: 0}
   endCell: {x: 5, y: 0, z: 5}
-  targetPlayer: 1
-  drawPath: 1
+  targetPlayer: 0
+  drawPath: 0
   gridContainer: {fileID: 2115707286}
   playerTransform: {fileID: 1823122894}
 --- !u!4 &1529826544
@@ -1087,7 +1103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridContainer: {fileID: 2115707286}
-  drawGrid: 1
+  drawGrid: 0
 --- !u!114 &2115707286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1100,10 +1116,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b83e714ad13d9ff4eb85f5c5e69fc6c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 20
-  width: 20
+  height: 100
+  width: 100
   cellSize: 2
-  originPosition: {x: 0, y: 0, z: 0}
+  originPosition: {x: -100, y: 0, z: -100}
   occupiedCells:
   - {x: 8, y: 0}
   - {x: 8, y: 1}
