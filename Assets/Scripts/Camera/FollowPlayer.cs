@@ -5,8 +5,8 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
     public Transform PlayerTransform;
-    [Range(0.01f, 1.0f)]
-    public float SmoothFactor = 0.5f;
+    [Range(0.01f, 10.0f)]
+    public float CameraSpeed = 1.5f;
 
     private Vector3 cameraOffset;
 
@@ -19,6 +19,22 @@ public class FollowPlayer : MonoBehaviour
     void Update()
     {
         var newPosition = PlayerTransform.position + cameraOffset;
-        transform.position = Vector3.Slerp(transform.position, newPosition, SmoothFactor);
+
+        var cameraMoveDirection = (newPosition - transform.position).normalized;
+        var distance = Vector3.Distance(newPosition, transform.position);
+
+        if (distance > 0)
+        {
+            var newCameraPosition = transform.position + cameraMoveDirection * distance * CameraSpeed * Time.deltaTime;
+
+            var distanceAfterMoving = Vector3.Distance(newCameraPosition, newPosition);
+            if (distanceAfterMoving > distance)
+            {
+                // Overshoot the target
+                newCameraPosition = newPosition;
+            }
+
+            transform.position = newCameraPosition;
+        }
     }
 }
