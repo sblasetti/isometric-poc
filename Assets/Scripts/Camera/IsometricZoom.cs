@@ -27,13 +27,22 @@ public class IsometricZoom : MonoBehaviour
         if (zoomDifference != 0)
         {
             var newCameraZoomSize = activeCamera.orthographicSize - zoomDifference;
-            Camera.main.orthographicSize = Mathf.Min(Mathf.Max(newCameraZoomSize, MinZoom), MaxZoom);
+            Camera.main.orthographicSize = Mathf.Clamp(newCameraZoomSize, MinZoom, MaxZoom);
         }
     }
 
     private float GetZoomDifference()
     {
+        if (Input.GetKey(KeyCode.Plus) || Input.GetKey(KeyCode.KeypadPlus))
+        {
+            return ZoomFactor * Time.deltaTime;
+        }
+        else if (Input.GetKey(KeyCode.Minus) || Input.GetKey(KeyCode.KeypadMinus))
+        {
+            return -ZoomFactor * Time.deltaTime;
+        }
+
         // TODO: Have different factors depending on the key used to change the zoom
-        return Input.GetAxis("Mouse ScrollWheel") * ZoomFactor;
+        return Input.mouseScrollDelta.y * ZoomFactor * Time.deltaTime;
     }
 }
